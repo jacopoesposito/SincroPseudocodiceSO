@@ -1,5 +1,5 @@
-# Esercizi di SO sulle sincronizzazioni in pseudo-codice.
-Esercizi di SO sulle sincronizzazioni scritte in pseudo-codice.
+# Esercizi di SO sulle sincronizzazioni in pseudocodice.
+Esercizi di SO sulle sincronizzazioni scritte in pseudocodice.
 
 # Come scaricare il materiale.
 La presente è una guida valida per i sistemi GNU/Linux.
