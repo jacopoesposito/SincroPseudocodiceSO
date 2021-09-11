@@ -31,12 +31,6 @@ cd Documenti/[nome_cartella]
 ```console
 git clone https://github.com/jacopoesposito/Esercizi-SO.git
 ```
-* Compilare ed eseguire il programma
-```console
-gcc [nome_programma].c -o [nome_programma] -pthread
-
-./[nome_programma]
-```
 
 # Come contribuire
 
