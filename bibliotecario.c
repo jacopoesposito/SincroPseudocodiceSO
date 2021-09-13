@@ -18,21 +18,33 @@ int id_scelta
 int id_stud
 int flag=0
 int flag_cons=0
+
+mutex_mult: Semaforo mutex = 1 //semaforo posti multimediali per ind_posti_mult
+mutex_esito: Semaforo murex = 1 //semaforo per flag, flag_cons, ind_posti_cons
+
+scelta_sem: Semaforo binario = 0 
+bibliotecario: Semaforo binario = 1
+risposta: Semaforo binario = 0
+posti_cons: Semaforo binario = 0
+vai: Semaforo binario = 0
+
 studente(){
 	int scelta;
 	wait(mutex_mult)
 		if(ind_posti_mult<M){
 			ind_posti_mult++
 			signal(mutex_mult)
-			scelta = ricerca_libro(libri)//variabile locale per ricordare la scelta
+			scelta = ricerca_libro(libri)//variabile locale per ricordare la scelta. Ci vorrà un po' di tempo
+			mutex(mutex_mult)
+			ind_posti_mult-- //libero la postazione multimediale
+			signal(mutex_multi)
 			
-			wait(bibliotecario) //1
+			wait(bibliotecario) //vedo se il bibliotecario è disponibile altrimenti aspetto
 			
-			#wait(mutex_scelta)
+			//non ha bisogno di un mutex perché nessuno va avanti finché il bibliotecario non farà una signal(bibliotecario) di nuovo
 			id_scelta = scelta //imposto scelta su variabile globale perché il bibliotecario è disponibile
-			#signal(mutex_scelta)
 			
-			signal(scelta) 
+			signal(scelta_sem) 
 			wait(risposta)
 			wait(mutex_esito)
 			if(flag==1 && ind_posti_cons<N){ //ho il libro e posso consultarlo
@@ -82,7 +94,7 @@ studente(){
 bibliotecario(){
 	
 	while(1){
-		wait(scelta)
+		wait(scelta_sem)
 		
 		wait(mutex_esito)
 		flag=prendi_libro(libri,id_scelta) //se flag=1 allora c'è una copia del libro, altrimenti se =0 non c'è
