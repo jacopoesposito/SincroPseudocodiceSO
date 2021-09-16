@@ -29,7 +29,7 @@ cd Documenti/[nome_cartella]
 ```
 * Clonare il repository
 ```console
-git clone https://github.com/jacopoesposito/Esercizi-SO.git
+git clone https://github.com/jacopoesposito/SincroPseudocodice.git
 ```
 
 # Come contribuire
